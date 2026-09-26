@@ -1,0 +1,53 @@
+.section-uiux {
+  background-image: var(--paper);
+  background-size: cover;
+  background-position: center;
+}
+
+.section-uiux .project-panel {
+  min-height: 760px;
+  overflow: hidden;
+  background-image: var(--paper);
+  background-size: cover;
+  background-position: center;
+}
+
+.seoul-craft .project-visual img {
+  width: 600px;
+  transform: translateX(-100px);
+}
+
+.bunjang .project-visual img {
+  width: 1000px;
+  transform: translateX(90px);
+}
+
+.heyum .project-visual img {
+  width: 850px;
+  transform: translateX(-100px);
+}
+
+.timo .project-visual img {
+  width: 700px;
+  transform: translateX(-100px);
+}
+
+.seoul-craft .project-category,
+.seoul-craft .project-title {
+  color: var(--color-seoul-craft);
+}
+
+.bunjang .project-category,
+.bunjang .project-title {
+  color: var(--color-bunjang);
+}
+
+.heyum .project-category,
+.heyum .project-title {
+  color: var(--color-heyum);
+}
+
+.timo .project-category,
+.timo .project-title {
+  color: var(--color-timo-primary);
+}

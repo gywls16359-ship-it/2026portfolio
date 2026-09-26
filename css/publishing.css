@@ -1,0 +1,62 @@
+.section-publishing .project-panel {
+  position: relative;
+  min-height: 760px;
+  overflow: hidden;
+}
+
+.publishing-texture {
+  position: absolute;
+  inset: 0;
+  background-image: var(--paper);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.58;
+  pointer-events: none;
+}
+
+.section-publishing .project-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.ankerprime {
+  background-color: var(--bg-ankerprime);
+}
+
+.sulbing {
+  background-color: var(--bg-sulbing);
+}
+
+.jeju-vegan {
+  background-color: var(--bg-jeju-vegan);
+}
+
+.ankerprime .project-category,
+.ankerprime .project-title {
+  color: var(--color-ankerprime);
+}
+
+.sulbing .project-category,
+.sulbing .project-title {
+  color: var(--color-sulbing);
+}
+
+.jeju-vegan .project-category,
+.jeju-vegan .project-title {
+  color: var(--color-jeju-vegan);
+}
+
+.ankerprime .project-visual img {
+  width: 700px;
+  transform: translateX(-100px);
+}
+
+.sulbing .project-visual img {
+  width: 870px;
+  transform: translateX(-100px);
+}
+
+.jeju-vegan .project-visual img {
+  width: 970px;
+  transform: translateX(0);
+}

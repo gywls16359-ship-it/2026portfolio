@@ -1,0 +1,289 @@
+.section-profile {
+  min-height: 950px;
+  padding: 100px 72px 50px;
+  background-image: var(--paper);
+  background-size: cover;
+  background-position: center;
+}
+
+.profile-inner {
+  display: flex;
+  align-items: center;
+  gap: 76px;
+  max-width: 1257px;
+  margin: 0 auto;
+}
+
+.profile-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 390px;
+}
+
+.profile-watermark {
+  margin-bottom: -40px;
+  font-family: var(--font-kyobo);
+  font-size: 85px;
+  line-height: 1;
+  color: rgba(51, 109, 255, 0.5);
+}
+
+.profile-photo {
+  display: block;
+  width: 390px;
+  height: 386px;
+  object-fit: contain;
+  border-radius: 50px;
+  background: transparent;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  margin-top: 35px;
+  font-family: var(--font-score);
+  font-weight: 300;
+  font-size: 25px;
+  line-height: 25px;
+  letter-spacing: -0.04em;
+  text-align: center;
+  color: var(--color-black);
+}
+
+.profile-keywords {
+  display: flex;
+  justify-content: space-between;
+  width: 272px;
+  margin-top: 19px;
+}
+
+.profile-keywords li {
+  padding: 10px;
+  border: 1.5px solid var(--color-main-blue);
+  border-radius: 12px;
+  font-family: "Kyobo Handwriting 2025";
+  font-size: 20px;
+  line-height: 15px;
+  letter-spacing: 0.04em;
+  color: var(--color-main-blue);
+}
+
+.profile-right {
+  display: flex;
+  flex-direction: column;
+  gap: 53px;
+  width: 791px;
+}
+
+.profile-heading {
+  font-family: var(--font-score);
+  font-weight: 300;
+  font-size: 25px;
+  line-height: 40px;
+  letter-spacing: -0.04em;
+}
+
+.skill-list {
+  display: flex;
+  justify-content: center;
+  gap: 23px;
+  margin-top: 17px;
+}
+
+.skill-item {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.skill-circle,
+.skill-circle svg {
+  width: 120px;
+  height: 120px;
+}
+
+.skill-track,
+.skill-progress {
+  fill: none;
+  stroke-width: 10;
+}
+
+.skill-track {
+  stroke: var(--color-skill-track);
+}
+
+.skill-progress {
+  stroke: var(--color-skill-blue);
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transform-box: fill-box;
+  stroke-dasharray: 314.16;
+  stroke-dashoffset: calc(314.16 * (1 - var(--skill-pct) / 100));
+}
+
+.skill-name {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  width: 100px;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-pretendard);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--color-skill-blue);
+}
+
+.skill-percent {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  width: 100px;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-pretendard);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 12px;
+  text-align: center;
+  color: #3d3d3d;
+}
+
+.skill-percent span {
+  font-weight: 700;
+}
+
+.skill-additional {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  margin-top: 27px;
+  font-family: var(--font-score);
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+}
+
+.skill-additional-icons {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.skill-additional-icons img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.profile-career {
+  display: flex;
+  gap: 20px;
+}
+
+.career-edu {
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  width: 335px;
+}
+
+.edu-item {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  padding: 0 10px;
+  font-size: 16px;
+  letter-spacing: -0.07em;
+}
+
+.edu-date {
+  font-family: var(--font-score);
+  font-weight: 300;
+  line-height: 30px;
+  color: var(--color-main-blue);
+}
+
+.edu-school,
+.edu-org,
+.edu-detail {
+  font-family: var(--font-score);
+  line-height: 30px;
+  color: var(--color-black);
+}
+
+.edu-school {
+  font-weight: 300;
+}
+
+.edu-org {
+  font-weight: 400;
+}
+
+.edu-detail {
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.career-award {
+  width: 436px;
+}
+
+.award-group {
+  margin-top: 8px;
+  padding: 0 10px;
+}
+
+.award-year {
+  font-family: var(--font-score);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 40px;
+  letter-spacing: -0.07em;
+  color: var(--color-main-blue);
+  border-bottom: 1px solid #c8c8c8;
+}
+
+.award-group li {
+  display: flex;
+  align-items: flex-start;
+  font-size: 16px;
+  letter-spacing: -0.07em;
+}
+
+.award-month {
+  flex: 0 0 28px;
+  font-family: var(--font-score);
+  font-weight: 400;
+  line-height: 40px;
+}
+
+.award-desc {
+  font-family: var(--font-score);
+  font-weight: 300;
+  line-height: 40px;
+}
+
+.profile-left.reveal {
+  --reveal-delay: 0s;
+}
+
+.skills-block.reveal {
+  --reveal-delay: 0.1s;
+}
+
+.career-edu > section.reveal:nth-child(1) {
+  --reveal-delay: 0.18s;
+}
+
+.career-edu > section.reveal:nth-child(2) {
+  --reveal-delay: 0.26s;
+}
+
+.career-award.reveal {
+  --reveal-delay: 0.34s;
+}

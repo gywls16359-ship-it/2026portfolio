@@ -1,0 +1,134 @@
+.section-graphic {
+  min-height: 900px;
+  padding: 174px 0 80px;
+  background-image: var(--paper);
+  background-size: cover;
+  background-position: center;
+}
+
+.graphic-inner {
+  /* max-width: var(--frame-width); */
+  padding: 0 0 0 100px;
+  margin: 0 auto;
+}
+
+/* .graphic-title {
+  padding-left: 102px;
+  font-family: var(--font-pretendard);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 33px;
+  color: var(--color-main-blue);
+} */
+
+.graphic-gallery {
+  display: flex;
+  gap: 80px;
+  margin-top: 56px;
+  padding: 10px 80px 10px 118px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.graphic-gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.graphic-item {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  scroll-snap-align: start;
+  cursor: pointer;
+}
+
+.graphic-thumb {
+  position: relative;
+  width: 450px;
+  height: 550px;
+  overflow: hidden;
+}
+
+.graphic-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.35s ease;
+}
+
+.graphic-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(32, 32, 32, 0.5);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.graphic-thumb:hover img {
+  transform: scale(1.15);
+}
+
+.graphic-thumb:hover::after {
+  opacity: 1;
+}
+
+.graphic-caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.graphic-category {
+  font-family: var(--font-pretendard);
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0;
+  color: #505050;
+  text-align: center;
+}
+
+.graphic-name {
+  font-family: var(--font-pretendard);
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 0;
+  color: #323232;
+  text-align: center;
+}
+
+.graphic-item.reveal:nth-child(1) {
+  --reveal-delay: 0s;
+}
+
+.graphic-item.reveal:nth-child(2) {
+  --reveal-delay: 0.08s;
+}
+
+.graphic-item.reveal:nth-child(3) {
+  --reveal-delay: 0.16s;
+}
+
+.graphic-item.reveal:nth-child(4) {
+  --reveal-delay: 0.24s;
+}
+
+.graphic-item.reveal:nth-child(5) {
+  --reveal-delay: 0.32s;
+}
+
+@media (min-width: 1201px) {
+  .section-graphic {
+    overflow: hidden;
+  }
+
+  .graphic-gallery {
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+}

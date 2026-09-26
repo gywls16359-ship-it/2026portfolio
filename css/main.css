@@ -1,0 +1,238 @@
+.section-main {
+  position: relative;
+  min-height: 900px;
+  padding: var(--header-height) 88px 88px;
+  background-image: var(--paper);
+  background-size: cover;
+  background-position: center;
+}
+
+.main-inner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 165px;
+  max-width: var(--frame-width);
+  min-height: 608px;
+  margin: 100px auto 0;
+}
+
+.main-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: flex-start;
+  padding: 84px 0 43px;
+}
+
+.main-year-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 9px;
+}
+
+.main-check {
+  position: absolute;
+  left: -24px;
+  top: -9px;
+  z-index: 0;
+  width: 235px;
+  height: auto;
+  pointer-events: none;
+}
+
+.main-year {
+  position: relative;
+  z-index: 1;
+  font-family: "Kyobo Handwriting 2025";
+  font-size: 30px;
+  letter-spacing: -0.04em;
+  color: #262626;
+  transform: rotate(-3.61deg);
+  transform-origin: left center;
+}
+
+.main-role {
+  font-family: var(--font-score);
+  font-weight: 700;
+  font-size: 53px;
+  line-height: 56px;
+  letter-spacing: -0.04em;
+  margin-top: 55px;
+}
+
+.main-role__line {
+  display: block;
+}
+
+.role-blue {
+  color: var(--color-main-blue);
+}
+
+.role-black {
+  color: var(--color-black);
+}
+
+.main-name {
+  font-family: var(--font-score);
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 72px;
+  letter-spacing: -0.04em;
+  color: var(--color-black);
+}
+
+.main-intro {
+  margin-top: 45px;
+  font-family: var(--font-score);
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 44px;
+  letter-spacing: -0.04em;
+  color: var(--color-black);
+}
+
+.intro-em {
+  font-weight: 500;
+}
+
+.intro-name {
+  font-weight: 400;
+  color: var(--color-main-blue);
+}
+
+.intro-end {
+  color: #373737;
+}
+
+.word-search-frame {
+  flex-shrink: 0;
+  width: 661px;
+  height: 608px;
+}
+
+.word-search {
+  position: relative;
+  width: 661px;
+  height: 608px;
+  overflow: visible;
+}
+
+.word-search svg {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+}
+
+.word-search-letters {
+  left: -21.03px;
+  top: 15.08px;
+  z-index: 1;
+  width: 659px;
+  height: 585px;
+}
+
+.word-search-line {
+  z-index: 2;
+}
+
+.word-search-line rect {
+  fill: none;
+  stroke: #336dff;
+  stroke-width: 3.3;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: word-line-draw 1.1s ease forwards;
+}
+
+.word-search-line--web {
+  left: -37.95px;
+  top: 8.8px;
+  width: 235.86px;
+  height: 235.41px;
+}
+
+.word-search-line--web rect {
+  animation-delay: 0s;
+}
+
+.word-search-line--publish {
+  left: 30.4px;
+  top: 13.24px;
+  width: 547.92px;
+  height: 529.06px;
+}
+
+.word-search-line--publish rect {
+  animation-delay: 0.22s;
+}
+
+.word-search-line--design {
+  left: -30.51px;
+  top: 319.58px;
+  width: 447px;
+  height: 50.16px;
+}
+
+.word-search-line--design rect {
+  animation-delay: 0.44s;
+}
+
+.word-search-line--uiux {
+  left: 586.59px;
+  top: 165.14px;
+  width: 50.16px;
+  height: 290.4px;
+}
+
+.word-search-line--uiux rect {
+  animation-delay: 0.66s;
+}
+
+.word-search-line--portfolio {
+  left: -30.51px;
+  top: 539.14px;
+  width: 669px;
+  height: 49.5px;
+}
+
+.word-search-line--portfolio rect {
+  animation-delay: 0.88s;
+}
+
+@keyframes word-line-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-search-line rect {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-50%);
+}
+
+.scroll-cue p {
+  font-family: "Kyobo Handwriting 2025";
+  font-size: 22px;
+  letter-spacing: -0.04em;
+  color: var(--color-main-blue);
+}
+
+.scroll-cue__arrow {
+  display: block;
+  width: 13px;
+  height: auto;
+  margin-top: 9px;
+}

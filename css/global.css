@@ -1,0 +1,141 @@
+@font-face {
+  font-family: "Kyobo Handwriting 2025";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2604-1@main/KyoboHandwriting2025lyb.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "S-Core Dream";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-1Thin.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "S-Core Dream";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "S-Core Dream";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "S-Core Dream";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "S-Core Dream";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --color-black: #202020;
+  --color-nav: #3b3b3b;
+  --color-main-blue: #336dff;
+  --color-subtext: #3d3d3d;
+  --color-white: #ffffff;
+
+  --color-skill-blue: #4e51ff;
+  --color-skill-track: #d9d9d9;
+
+  --color-seoul-craft: #3b0000;
+  --color-bunjang: #b50000;
+  --color-heyum: #0c9ad7;
+  --color-timo-primary: #00b5a6;
+  --color-timo-secondary: #3a3dff;
+
+  --color-ankerprime: #3a3dff;
+  --color-sulbing: #ff4b4b;
+  --color-jeju-vegan: #25580a;
+
+  --bg-ankerprime: #cfebff;
+  --bg-sulbing: #ffeeee;
+  --bg-jeju-vegan: #d5ffe7;
+
+  --bottom-nav-height: 100px;
+  --point-line-width: 162px;
+  --point-line-height: 6px;
+
+  --header-height: 100px;
+  --frame-width: 1400px;
+  --font-pretendard: "Pretendard", sans-serif;
+  --font-score: "S-Core Dream", sans-serif;
+  --font-kyobo: "Kyobo Handwriting 2025";
+  --paper: url("../assets/images/common/paper.jpg");
+}
+
+html {
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  font-family: var(--font-pretendard);
+  color: var(--color-black);
+  background: #f4f2ee;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* TODO: AppleSDGothicNeoEB00 — MAIN Word Search 전용. 사용 가능한 웹폰트 소스 확인 후 연결 */
