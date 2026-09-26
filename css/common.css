@@ -9,6 +9,7 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 2px 16.4px rgba(69, 69, 69, 0.25);
+  transform-origin: center top;
 }
 
 .site-nav {
@@ -346,6 +347,29 @@
   margin-bottom: 40px;
   border-radius: 999px;
   background: #ffffff;
+}
+
+.project-slide-indicator {
+  position: absolute;
+  top: -3px;
+  left: 0;
+  z-index: 2;
+  width: var(--point-line-width);
+  height: var(--point-line-height);
+  border-radius: 999px;
+  background: #ffffff;
+  pointer-events: none;
+}
+
+@media (min-width: 1201px) {
+  .project-bottom-nav.has-slide-indicator .bottom-nav-item.is-active .point-line {
+    width: 11px;
+    height: 11px;
+    margin-top: -5.5px;
+    margin-bottom: 33px;
+    border-radius: 50%;
+    opacity: 0;
+  }
 }
 
 .detail-modal {

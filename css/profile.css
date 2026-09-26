@@ -121,7 +121,40 @@
   transform-origin: 50% 50%;
   transform-box: fill-box;
   stroke-dasharray: 314.16;
+  stroke-dashoffset: 314.16;
+  transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skill-item:nth-child(1) .skill-progress {
+  transition-delay: 0s;
+}
+
+.skill-item:nth-child(2) .skill-progress {
+  transition-delay: 0.08s;
+}
+
+.skill-item:nth-child(3) .skill-progress {
+  transition-delay: 0.16s;
+}
+
+.skill-item:nth-child(4) .skill-progress {
+  transition-delay: 0.24s;
+}
+
+.skill-item:nth-child(5) .skill-progress {
+  transition-delay: 0.32s;
+}
+
+.section-profile.skills-animate .skill-progress,
+.skills-block.is-drawn .skill-progress {
   stroke-dashoffset: calc(314.16 * (1 - var(--skill-pct) / 100));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-progress {
+    transition: none;
+    stroke-dashoffset: calc(314.16 * (1 - var(--skill-pct) / 100));
+  }
 }
 
 .skill-name {

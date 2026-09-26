@@ -51,3 +51,20 @@
 .timo .project-title {
   color: var(--color-timo-primary);
 }
+
+@media (min-width: 1201px) {
+  .section-uiux.is-project-slider {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    min-height: 760px;
+  }
+
+  .section-uiux.is-project-slider .project-panel {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+  }
+}

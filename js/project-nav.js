@@ -24,6 +24,13 @@ const updateActiveProject = (nav) => {
     return;
   }
 
+  if (
+    (nav.dataset.nav === "uiux" || nav.dataset.nav === "publishing") &&
+    window.matchMedia("(min-width: 1201px)").matches
+  ) {
+    return;
+  }
+
   const items = [...nav.querySelectorAll(".bottom-nav-item")];
   const y = window.scrollY + window.innerHeight / 2;
   let active = items[0];

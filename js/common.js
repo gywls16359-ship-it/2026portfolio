@@ -87,6 +87,7 @@ if (prefersReducedMotion) {
   document.querySelectorAll(".reveal").forEach((el) => {
     el.classList.add("is-visible");
   });
+  document.querySelector(".skills-block")?.classList.add("is-drawn");
 } else {
   const revealRoots = [document.querySelector(".section-graphic")].filter(
     Boolean
@@ -109,4 +110,24 @@ if (prefersReducedMotion) {
   );
 
   revealRoots.forEach((root) => revealObserver.observe(root));
+
+  const skillsBlock = document.querySelector(".skills-block");
+  const isDesktopFullpage = window.matchMedia("(min-width: 1201px)").matches;
+  if (skillsBlock && !isDesktopFullpage) {
+    const skillsObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+          skillsBlock.classList.add("is-drawn");
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.25,
+      }
+    );
+    skillsObserver.observe(skillsBlock);
+  }
 }
