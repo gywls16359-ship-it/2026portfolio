@@ -131,7 +131,7 @@
   width: 100%;
   max-width: var(--frame-width);
   margin: 0 auto;
-  padding: 120px 0 140px 102px;
+  padding: clamp(72px, 10svh, 120px) 0 clamp(80px, 10svh, 140px) 102px;
 }
 
 .section-uiux .project-panel .project-inner,
@@ -139,7 +139,7 @@
   max-width: 1760px;
   grid-template-columns: minmax(420px, 38%) minmax(0, 1fr);
   column-gap: 28px;
-  padding: 56px 40px 80px 72px;
+  padding: clamp(36px, 5svh, 56px) 40px clamp(88px, 12svh, 108px) 72px;
 }
 
 .project-info {

@@ -1,6 +1,6 @@
 .section-profile {
-  min-height: 950px;
-  padding: 100px 72px 50px;
+  min-height: var(--section-min-height-header);
+  padding: clamp(56px, 10svh, 100px) 72px clamp(16px, 4svh, 50px);
   background-image: var(--paper);
   background-size: cover;
   background-position: center;
@@ -9,8 +9,9 @@
 .profile-inner {
   display: flex;
   align-items: center;
-  gap: 76px;
+  gap: clamp(28px, 6svh, 76px);
   max-width: 1257px;
+  min-height: calc(var(--section-min-height-header) - clamp(56px, 10svh, 100px) - clamp(16px, 4svh, 50px));
   margin: 0 auto;
 }
 
@@ -41,8 +42,8 @@
 .profile-info {
   display: flex;
   flex-direction: column;
-  gap: 21px;
-  margin-top: 35px;
+  gap: clamp(10px, 2svh, 21px);
+  margin-top: clamp(12px, 3svh, 35px);
   font-family: var(--font-score);
   font-weight: 300;
   font-size: 25px;
@@ -73,7 +74,7 @@
 .profile-right {
   display: flex;
   flex-direction: column;
-  gap: 53px;
+  gap: clamp(20px, 5svh, 53px);
   width: 791px;
 }
 
@@ -81,7 +82,7 @@
   font-family: var(--font-score);
   font-weight: 300;
   font-size: 25px;
-  line-height: 40px;
+  line-height: clamp(28px, 4svh, 40px);
   letter-spacing: -0.04em;
 }
 
@@ -89,7 +90,7 @@
   display: flex;
   justify-content: center;
   gap: 23px;
-  margin-top: 17px;
+  margin-top: clamp(8px, 1.8svh, 17px);
 }
 
 .skill-item {
@@ -194,7 +195,7 @@
   align-items: center;
   justify-content: center;
   gap: 26px;
-  margin-top: 27px;
+  margin-top: clamp(12px, 2.6svh, 27px);
   font-family: var(--font-score);
   font-weight: 300;
   font-size: 16px;
@@ -221,7 +222,7 @@
 .career-edu {
   display: flex;
   flex-direction: column;
-  gap: 70px;
+  gap: clamp(20px, 6svh, 70px);
   width: 335px;
 }
 

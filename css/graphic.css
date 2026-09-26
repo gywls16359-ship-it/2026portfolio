@@ -1,6 +1,6 @@
 .section-graphic {
-  min-height: 900px;
-  padding: 174px 0 80px;
+  min-height: var(--section-min-height-header);
+  padding: clamp(calc(var(--header-height) + 8px), 14svh, 174px) 0 clamp(32px, 6svh, 80px);
   background-image: var(--paper);
   background-size: cover;
   background-position: center;
@@ -24,7 +24,7 @@
 .graphic-gallery {
   display: flex;
   gap: 80px;
-  margin-top: 56px;
+  margin-top: clamp(16px, 5svh, 56px);
   padding: 10px 80px 10px 118px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -40,7 +40,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: clamp(16px, 4svh, 40px);
   scroll-snap-align: start;
   cursor: pointer;
 }
@@ -124,11 +124,22 @@
 
 @media (min-width: 1201px) {
   .section-graphic {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     overflow: hidden;
+    min-height: 100svh;
+    padding: 0;
+  }
+
+  .graphic-inner {
+    flex: 0 0 auto;
+    width: 100%;
   }
 
   .graphic-gallery {
     overflow: visible;
     scroll-snap-type: none;
+    margin-top: 0;
   }
 }
