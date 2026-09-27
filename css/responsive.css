@@ -235,6 +235,10 @@
     gap: 20px;
   }
 
+  .contact-github {
+    margin-left: calc(50px - 20px);
+  }
+
   .modal-content {
     max-width: 88vw;
   }
@@ -673,12 +677,6 @@
   .contact-desc {
     font-size: 18px;
     line-height: 24px;
-  }
-
-  .contact-pencil {
-    right: 0;
-    bottom: -8px;
-    width: 40px;
   }
 
   .contact-row {

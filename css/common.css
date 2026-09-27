@@ -403,7 +403,7 @@
   margin-top: -3px;
   margin-bottom: 40px;
   border-radius: 999px;
-  background: #ffffff;
+  background: var(--color-main-blue);
 }
 
 .project-slide-indicator {
@@ -414,7 +414,7 @@
   width: var(--point-line-width);
   height: var(--point-line-height);
   border-radius: 999px;
-  background: #ffffff;
+  background: var(--color-main-blue);
   pointer-events: none;
 }
 

@@ -21,15 +21,6 @@
   width: 507px;
 }
 
-.contact-pencil {
-  position: absolute;
-  right: -12px;
-  bottom: -4px;
-  width: 54px;
-  height: auto;
-  pointer-events: none;
-}
-
 .contact-title {
   font-family: var(--font-score);
   font-weight: 700;
@@ -76,7 +67,7 @@
 .contact-row {
   display: flex;
   align-items: center;
-  gap: 76px;
+  gap: 37px;
   width: 100%;
   padding-bottom: 7px;
   border-bottom: 3px solid rgba(83, 170, 207, 0.5);
@@ -85,7 +76,7 @@
 .contact-github {
   width: 41px;
   height: 41px;
-  margin-left: auto;
+  margin-left: calc(50px - 37px);
   flex-shrink: 0;
   object-fit: contain;
 }
@@ -100,7 +91,7 @@
 
 .contact-value {
   font-family: "Kyobo Handwriting 2025";
-  font-size: 48px;
+  font-size: 40px;
   line-height: 54px;
   color: var(--color-black);
 }
