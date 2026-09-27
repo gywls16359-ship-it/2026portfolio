@@ -41,6 +41,8 @@ if (typeof gsap === "undefined") {
 
   const UIUX_INDEX = screens.indexOf(uiuxSection);
   const PUBLISHING_INDEX = screens.indexOf(publishingSection);
+  const contactSection = document.getElementById("contact");
+  const CONTACT_INDEX = screens.indexOf(contactSection);
 
   const makeSlider = (section, navSelector) => {
     const nav = document.querySelector(navSelector);
@@ -177,6 +179,167 @@ if (typeof gsap === "undefined") {
     }
   };
 
+  const contactTitle = contactSection?.querySelector(".contact-title");
+  const contactDesc = contactSection?.querySelector(".contact-desc");
+  const contactRows = contactSection
+    ? [...contactSection.querySelectorAll(".contact-row")]
+    : [];
+  const contactNameRow = contactRows[0];
+  const contactEmailRow = contactRows[1];
+  const contactPhoneRow = contactRows[2];
+  const contactGithub = contactNameRow?.querySelector(".contact-github");
+  let contactDescText = "";
+  let contactTypeEl = null;
+  let contactCursorEl = null;
+  let contactDescReady = false;
+  let contactIntroTween = null;
+
+  const setupContactDesc = () => {
+    if (!contactDesc || contactDescReady) {
+      return;
+    }
+    contactDescText = contactDesc.textContent.trim();
+    contactDesc.textContent = "";
+    contactDesc.classList.add("is-measured");
+    contactDesc.setAttribute("aria-label", contactDescText);
+
+    const sizer = document.createElement("span");
+    sizer.className = "contact-desc__sizer";
+    sizer.setAttribute("aria-hidden", "true");
+    sizer.textContent = contactDescText;
+
+    const live = document.createElement("span");
+    live.className = "contact-desc__live";
+    live.setAttribute("aria-hidden", "true");
+
+    contactTypeEl = document.createElement("span");
+    contactTypeEl.className = "contact-desc__text";
+
+    contactCursorEl = document.createElement("span");
+    contactCursorEl.className = "contact-desc__cursor";
+    contactCursorEl.setAttribute("aria-hidden", "true");
+    contactCursorEl.textContent = "|";
+
+    live.append(contactTypeEl, contactCursorEl);
+    contactDesc.append(sizer, live);
+    contactDescReady = true;
+  };
+
+  const hideContactIntro = () => {
+    contactIntroTween?.kill();
+    contactIntroTween = null;
+    if (!contactDescReady) {
+      return;
+    }
+    if (contactTitle) {
+      gsap.set(contactTitle, { opacity: 0, y: 28 });
+    }
+    gsap.set([contactNameRow, contactEmailRow, contactPhoneRow, contactGithub], {
+      opacity: 0,
+      y: 20,
+    });
+    contactTypeEl.textContent = "";
+    gsap.set(contactCursorEl, { opacity: 0 });
+  };
+
+  const playContactIntro = () => {
+    if (!contactDescReady || !contactTitle || !contactNameRow || !contactEmailRow || !contactPhoneRow || !contactGithub) {
+      return;
+    }
+    hideContactIntro();
+
+    const chars = Array.from(contactDescText);
+    const proxy = { count: 0 };
+    const titleDuration = 0.6;
+    const typeStart = 0.8;
+    const charDuration = 0.042;
+    const blinkHalf = 0.13;
+    const tl = gsap.timeline();
+    contactIntroTween = tl;
+
+    tl.to(contactTitle, {
+      opacity: 1,
+      y: 0,
+      duration: titleDuration,
+      ease: "power3.out",
+    });
+
+    tl.set(contactCursorEl, { opacity: 1 }, typeStart - blinkHalf * 4);
+    tl.to(contactCursorEl, { opacity: 0, duration: blinkHalf, ease: "none" }, typeStart - blinkHalf * 4);
+    tl.to(contactCursorEl, { opacity: 1, duration: blinkHalf, ease: "none" });
+    tl.to(contactCursorEl, { opacity: 0, duration: blinkHalf, ease: "none" });
+    tl.to(contactCursorEl, { opacity: 1, duration: blinkHalf, ease: "none" });
+
+    tl.to(proxy, {
+      count: chars.length,
+      duration: chars.length * charDuration,
+      ease: "none",
+      onUpdate: () => {
+        contactTypeEl.textContent = chars.slice(0, Math.round(proxy.count)).join("");
+      },
+    }, typeStart);
+
+    const typeEnd = typeStart + chars.length * charDuration;
+
+    tl.to(contactCursorEl, { opacity: 0, duration: blinkHalf, ease: "none" }, typeEnd);
+    tl.to(contactCursorEl, { opacity: 1, duration: blinkHalf, ease: "none" });
+    tl.to(contactCursorEl, { opacity: 0, duration: blinkHalf, ease: "none" });
+    tl.to(contactCursorEl, { opacity: 1, duration: blinkHalf, ease: "none" });
+    tl.to(contactCursorEl, { opacity: 0, duration: 0.18, ease: "power1.out" });
+
+    tl.to(contactNameRow, {
+      opacity: 1,
+      y: 0,
+      duration: 0.48,
+      ease: "power3.out",
+    }, typeEnd);
+    tl.to(contactEmailRow, {
+      opacity: 1,
+      y: 0,
+      duration: 0.48,
+      ease: "power3.out",
+    }, typeEnd);
+    tl.to(contactPhoneRow, {
+      opacity: 1,
+      y: 0,
+      duration: 0.48,
+      ease: "power3.out",
+    }, typeEnd + 0.1);
+    tl.to(contactGithub, {
+      opacity: 1,
+      y: 0,
+      duration: 0.48,
+      ease: "power3.out",
+    }, typeEnd + 0.2);
+  };
+
+  const restoreContactDesc = () => {
+    contactIntroTween?.kill();
+    contactIntroTween = null;
+    if (contactTitle) {
+      gsap.set(contactTitle, { clearProps: "opacity,transform" });
+    }
+    gsap.set([contactNameRow, contactEmailRow, contactPhoneRow, contactGithub].filter(Boolean), {
+      clearProps: "opacity,transform",
+    });
+    if (!contactDesc || !contactDescReady) {
+      return;
+    }
+    contactDesc.classList.remove("is-measured");
+    contactDesc.removeAttribute("aria-label");
+    contactDesc.textContent = contactDescText;
+    contactDescReady = false;
+    contactTypeEl = null;
+    contactCursorEl = null;
+  };
+
+  const syncContactIntro = (index, previousIndex) => {
+    if (!contactDescReady || index === CONTACT_INDEX || previousIndex !== CONTACT_INDEX) {
+      return;
+    }
+    hideContactIntro();
+  };
+
   const unlockMove = () => {
     isMoving = false;
   };
@@ -224,6 +387,113 @@ if (typeof gsap === "undefined") {
     });
   };
 
+  const panelEntranceTweens = new WeakMap();
+
+  const panelEntranceParts = (panel) => ({
+    texts: [
+      panel.querySelector(".project-category"),
+      panel.querySelector(".project-title"),
+      panel.querySelector(".project-subtitle"),
+      panel.querySelector(".project-meta"),
+    ].filter(Boolean),
+    image: panel.querySelector(".project-visual img"),
+    buttons: [...panel.querySelectorAll(".project-btn")],
+    texture: panel.querySelector(".publishing-texture"),
+  });
+
+  const resetPanelEntrance = (panel) => {
+    if (!panel) {
+      return;
+    }
+    panelEntranceTweens.get(panel)?.kill();
+    panelEntranceTweens.delete(panel);
+    const { texts, image, buttons, texture } = panelEntranceParts(panel);
+    gsap.set(texts, { opacity: 0, y: 22 });
+    gsap.set(buttons, { opacity: 0, y: 10 });
+    if (image) {
+      gsap.set(image, {
+        clipPath: "polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%)",
+        opacity: 0.7,
+      });
+    }
+    if (texture) {
+      gsap.set(texture, { opacity: 0 });
+    }
+  };
+
+  const playPanelEntrance = (panel) => {
+    if (!panel) {
+      return;
+    }
+    const publishing = panel.closest(".section-publishing");
+    const { texts, image, buttons, texture } = panelEntranceParts(panel);
+    resetPanelEntrance(panel);
+    const tl = gsap.timeline();
+    panelEntranceTweens.set(panel, tl);
+    tl.to(texts, {
+      opacity: 1,
+      y: 0,
+      duration: 0.48,
+      stagger: 0.07,
+      ease: "power3.out",
+    }, 0);
+    if (image) {
+      tl.fromTo(image, {
+        clipPath: "polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%)",
+        opacity: 0.7,
+      }, {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        opacity: 1,
+        duration: publishing ? 0.75 : 0.65,
+        ease: "power3.inOut",
+        immediateRender: false,
+      }, 0.1);
+    }
+    if (texture) {
+      tl.to(texture, {
+        opacity: 0.58,
+        duration: 0.7,
+        ease: "power3.out",
+      }, 0);
+    }
+    if (buttons.length) {
+      tl.to(buttons, {
+        opacity: 1,
+        y: 0,
+        duration: 0.36,
+        stagger: 0.05,
+        ease: "power3.out",
+      }, 0.42);
+    }
+  };
+
+  const clearPanelEntrance = (panel) => {
+    if (!panel) {
+      return;
+    }
+    panelEntranceTweens.get(panel)?.kill();
+    panelEntranceTweens.delete(panel);
+    const { texts, image, buttons, texture } = panelEntranceParts(panel);
+    gsap.set(texts, { clearProps: "opacity,transform" });
+    gsap.set(buttons, { clearProps: "opacity,transform" });
+    if (image) {
+      gsap.set(image, { clearProps: "opacity,clipPath" });
+    }
+    if (texture) {
+      gsap.set(texture, { clearProps: "opacity" });
+    }
+  };
+
+  const syncSliderEntrances = (slider, screenIndex) => {
+    slider.panels.forEach((panel, i) => {
+      if (currentIndex === screenIndex && i === slider.index) {
+        playPanelEntrance(panel);
+      } else {
+        resetPanelEntrance(panel);
+      }
+    });
+  };
+
   const layoutSliderPanels = (slider, index, immediate) => {
     slider.panels.forEach((panel, i) => {
       const isCurrent = i === index;
@@ -265,6 +535,7 @@ if (typeof gsap === "undefined") {
       duration: SLIDE_DURATION,
       ease: MOVE_EASE,
       overwrite: true,
+      onComplete: () => resetPanelEntrance(currentPanel),
     });
 
     gsap.to(nextPanel, {
@@ -272,7 +543,10 @@ if (typeof gsap === "undefined") {
       duration: SLIDE_DURATION,
       ease: MOVE_EASE,
       overwrite: true,
-      onComplete: unlockMove,
+      onComplete: () => {
+        playPanelEntrance(nextPanel);
+        unlockMove();
+      },
     });
 
     slider.index = nextIndex;
@@ -305,6 +579,7 @@ if (typeof gsap === "undefined") {
 
     syncHeaderCompact(index);
     syncProfileSkills(index, previousIndex);
+    syncContactIntro(index, previousIndex);
 
     if (index === GRAPHIC_INDEX && graphicGallery) {
       graphicStep = previousIndex > GRAPHIC_INDEX ? GRAPHIC_MAX_STEP : 0;
@@ -328,6 +603,28 @@ if (typeof gsap === "undefined") {
         const slider = sliderAtScreen(index);
         if (slider) {
           moveSliderIndicator(slider, slider.index, true);
+        }
+        if (index === CONTACT_INDEX && previousIndex !== CONTACT_INDEX) {
+          playContactIntro();
+        }
+        if (previousIndex === UIUX_INDEX && index !== UIUX_INDEX) {
+          uiux.panels.forEach(resetPanelEntrance);
+        }
+        if (previousIndex === PUBLISHING_INDEX && index !== PUBLISHING_INDEX) {
+          publishing.panels.forEach(resetPanelEntrance);
+        }
+        if (
+          (index === UIUX_INDEX || index === PUBLISHING_INDEX) &&
+          previousIndex !== index
+        ) {
+          const arrived = sliderAtScreen(index);
+          arrived?.panels.forEach((panel, i) => {
+            if (i === arrived.index) {
+              playPanelEntrance(panel);
+            } else {
+              resetPanelEntrance(panel);
+            }
+          });
         }
         unlockMove();
       },
@@ -516,6 +813,12 @@ if (typeof gsap === "undefined") {
     projectSliders.forEach(setupSliderNav);
     syncIndexFromScroll();
     syncHeaderCompact(currentIndex);
+    setupContactDesc();
+    if (currentIndex === CONTACT_INDEX) {
+      playContactIntro();
+    } else {
+      hideContactIntro();
+    }
     if (currentIndex === PROFILE_INDEX) {
       skillPlayTween = gsap.delayedCall(MOVE_DURATION, playSkillAnimation);
     } else {
@@ -523,6 +826,8 @@ if (typeof gsap === "undefined") {
     }
     layoutSliderPanels(uiux, uiux.index, true);
     layoutSliderPanels(publishing, publishing.index, true);
+    syncSliderEntrances(uiux, UIUX_INDEX);
+    syncSliderEntrances(publishing, PUBLISHING_INDEX);
     window.addEventListener("wheel", handleWheel, { passive: false });
     document.addEventListener("click", handleNavClick, true);
     window.addEventListener("resize", syncVisibleIndicator);
@@ -560,7 +865,11 @@ if (typeof gsap === "undefined") {
         });
       }
       resetSkillAnimation();
-      projectSliders.forEach(teardownSlider);
+      restoreContactDesc();
+      projectSliders.forEach((slider) => {
+        slider.panels.forEach(clearPanelEntrance);
+        teardownSlider(slider);
+      });
     };
   });
 }

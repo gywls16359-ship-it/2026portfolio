@@ -47,18 +47,21 @@
 }
 
 .ankerprime .project-visual img {
+  --visual-x: -100px;
   width: 700px;
-  transform: translateX(-100px);
+  transform: translateX(var(--visual-x));
 }
 
 .sulbing .project-visual img {
+  --visual-x: -100px;
   width: 870px;
-  transform: translateX(-100px);
+  transform: translateX(var(--visual-x));
 }
 
 .jeju-vegan .project-visual img {
+  --visual-x: 0px;
   width: 970px;
-  transform: translateX(0);
+  transform: translateX(var(--visual-x));
 }
 
 @media (min-width: 1201px) {

@@ -13,23 +13,27 @@
 }
 
 .seoul-craft .project-visual img {
+  --visual-x: -100px;
   width: 600px;
-  transform: translateX(-100px);
+  transform: translateX(var(--visual-x));
 }
 
 .bunjang .project-visual img {
+  --visual-x: 90px;
   width: 1000px;
-  transform: translateX(90px);
+  transform: translateX(var(--visual-x));
 }
 
 .heyum .project-visual img {
+  --visual-x: -100px;
   width: 850px;
-  transform: translateX(-100px);
+  transform: translateX(var(--visual-x));
 }
 
 .timo .project-visual img {
+  --visual-x: -100px;
   width: 700px;
-  transform: translateX(-100px);
+  transform: translateX(var(--visual-x));
 }
 
 .seoul-craft .project-category,

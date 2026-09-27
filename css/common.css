@@ -166,6 +166,26 @@
   max-width: none;
   height: auto;
   object-fit: contain;
+  --visual-x: 0px;
+  transform: translateX(var(--visual-x));
+}
+
+@keyframes project-visual-float {
+  0%,
+  100% {
+    transform: translate(var(--visual-x), 0);
+  }
+
+  50% {
+    transform: translate(var(--visual-x), -14px);
+  }
+}
+
+@media (min-width: 1201px) and (hover: hover) and (pointer: fine) {
+  .section-uiux .project-visual img:hover,
+  .section-publishing .project-visual img:hover {
+    animation: project-visual-float 3.2s ease-in-out infinite;
+  }
 }
 
 .project-category {
@@ -261,6 +281,43 @@
   background: var(--color-main-blue);
   border-color: var(--color-main-blue);
   color: var(--color-white);
+}
+
+.section-uiux .project-btn,
+.section-publishing .project-btn {
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.section-uiux .project-btn:hover,
+.section-publishing .project-btn:hover {
+  background-color: #202020;
+  border-color: #202020;
+  color: #ffffff;
+}
+
+.site-btn__arrow {
+  display: inline-block;
+  margin-left: 0;
+  transition: margin-left 0.25s ease;
+}
+
+.section-uiux .site-btn:hover .site-btn__arrow,
+.section-publishing .site-btn:hover .site-btn__arrow {
+  margin-left: 15px;
+}
+
+.section-uiux .icon-btn[aria-label="GitHub"] img,
+.section-publishing .icon-btn[aria-label="GitHub"] img {
+  transition: filter 0.25s ease;
+}
+
+.section-uiux .icon-btn[aria-label="GitHub"]:hover img,
+.section-publishing .icon-btn[aria-label="GitHub"]:hover img {
+  filter: brightness(0) invert(1);
 }
 
 .icon-btn {

@@ -46,6 +46,26 @@
   color: var(--color-black);
 }
 
+.contact-desc.is-measured {
+  position: relative;
+}
+
+.contact-desc__sizer {
+  visibility: hidden;
+}
+
+.contact-desc__live {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.contact-desc__cursor {
+  display: inline-block;
+  opacity: 0;
+}
+
 .contact-right {
   display: flex;
   flex-direction: column;

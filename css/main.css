@@ -311,6 +311,10 @@
     transform: translateX(-50%);
   }
 
+  .scroll-cue__arrow {
+    animation: none;
+  }
+
   .word-search-line rect,
   .section-main.is-ready .word-search-line--uiux rect,
   .section-main.is-ready .word-search-line--web rect,
@@ -344,6 +348,18 @@
   width: 13px;
   height: auto;
   margin-top: 9px;
+  animation: scroll-cue-float 1.6s ease-in-out infinite;
+}
+
+@keyframes scroll-cue-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
 }
 
 @media (min-width: 1201px) {
