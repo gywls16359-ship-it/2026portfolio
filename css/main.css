@@ -12,48 +12,20 @@
 .main-inner {
   display: flex;
   flex: 1 1 auto;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   gap: 165px;
   max-width: var(--frame-width);
   min-height: 0;
-  margin: clamp(16px, 8svh, 100px) auto 0;
+  margin: 0 auto;
 }
 
 .main-copy {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-self: flex-start;
-  padding: clamp(20px, 8svh, 84px) 0 clamp(12px, 4svh, 43px);
-}
-
-.main-year-wrap {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 9px;
-  font-size: 30px;
-}
-
-.main-check {
-  position: absolute;
-  left: -0.8em;
-  top: -0.3em;
-  z-index: 0;
-  width: 7.833em;
-  height: auto;
-  pointer-events: none;
-}
-
-.main-year {
-  position: relative;
-  z-index: 1;
-  font-family: "Kyobo Handwriting 2025";
-  font-size: 1em;
-  letter-spacing: -0.04em;
-  color: #262626;
-  transform: rotate(-3.61deg);
-  transform-origin: left center;
+  align-self: center;
+  padding: 0;
 }
 
 .main-role {
@@ -62,7 +34,7 @@
   font-size: 53px;
   line-height: clamp(40px, 5.5svh, 56px);
   letter-spacing: -0.04em;
-  margin-top: clamp(20px, 5svh, 55px);
+  margin-top: 0;
 }
 
 .main-role__line {
@@ -222,9 +194,7 @@
   }
 }
 
-.section-main.is-intro:not(.is-ready) .main-year-wrap,
 .section-main.is-intro:not(.is-ready) .main-role,
-.section-main.is-intro:not(.is-ready) .main-name,
 .section-main.is-intro:not(.is-ready) .main-intro,
 .section-main.is-intro:not(.is-ready) .word-search-frame {
   opacity: 0;
@@ -240,48 +210,40 @@
   transform: translate(-50%, 10px);
 }
 
-.section-main.is-ready .main-year-wrap {
-  animation: main-intro-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0s both;
-}
-
 .section-main.is-ready .main-role {
-  animation: main-intro-rise-strong 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
-}
-
-.section-main.is-ready .main-name {
-  animation: main-intro-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  animation: main-intro-rise-strong 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0s both;
 }
 
 .section-main.is-ready .main-intro {
-  animation: main-intro-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.42s both;
+  animation: main-intro-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
 }
 
 .section-main.is-ready .word-search-frame {
-  animation: main-intro-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
+  animation: main-intro-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
 }
 
 .section-main.is-ready .scroll-cue {
-  animation: main-intro-cue 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.75s both;
+  animation: main-intro-cue 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
 }
 
 .section-main.is-ready .word-search-line--uiux rect {
-  animation: word-line-draw 2s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+  animation: word-line-draw 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
 }
 
 .section-main.is-ready .word-search-line--web rect {
-  animation: word-line-draw 2s cubic-bezier(0.22, 1, 0.36, 1) 0.75s forwards;
+  animation: word-line-draw 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
 }
 
 .section-main.is-ready .word-search-line--design rect {
-  animation: word-line-draw 2s cubic-bezier(0.22, 1, 0.36, 1) 0.95s forwards;
+  animation: word-line-draw 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.75s forwards;
 }
 
 .section-main.is-ready .word-search-line--publish rect {
-  animation: word-line-draw 2s cubic-bezier(0.22, 1, 0.36, 1) 1.15s forwards;
+  animation: word-line-draw 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.95s forwards;
 }
 
 .section-main.is-ready .word-search-line--portfolio rect {
-  animation: word-line-draw 2s cubic-bezier(0.22, 1, 0.36, 1) 1.35s forwards;
+  animation: word-line-draw 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1.15s forwards;
 }
 
 .section-main.is-intro-done .word-search-line rect {
@@ -290,15 +252,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .section-main.is-intro:not(.is-ready) .main-year-wrap,
   .section-main.is-intro:not(.is-ready) .main-role,
-  .section-main.is-intro:not(.is-ready) .main-name,
   .section-main.is-intro:not(.is-ready) .main-intro,
   .section-main.is-intro:not(.is-ready) .word-search-frame,
   .section-main.is-intro:not(.is-ready) .scroll-cue,
-  .section-main.is-ready .main-year-wrap,
   .section-main.is-ready .main-role,
-  .section-main.is-ready .main-name,
   .section-main.is-ready .main-intro,
   .section-main.is-ready .word-search-frame,
   .section-main.is-ready .scroll-cue {

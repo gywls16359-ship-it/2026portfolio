@@ -67,7 +67,7 @@ if (typeof gsap === "undefined") {
   let isMoving = false;
   let graphicStep = 0;
 
-  const isFullpage = () => window.matchMedia("(min-width: 769px)").matches;
+  const isFullpage = () => window.matchMedia("(min-width: 1201px)").matches;
 
   const isModalOpen = () => Boolean(detailModal && !detailModal.hidden);
 
@@ -153,26 +153,34 @@ if (typeof gsap === "undefined") {
     skillPlayTween?.kill();
     skillPlayTween = null;
     profileSection?.classList.remove("skills-animate");
+    document.querySelector(".skills-block")?.classList.remove("is-drawn");
+    profileSection?.querySelectorAll(".skill-progress").forEach((el) => {
+      el.style.transition = "none";
+      el.style.strokeDashoffset = "314.16";
+    });
   };
 
   const playSkillAnimation = () => {
     if (!profileSection || currentIndex !== PROFILE_INDEX) {
       return;
     }
-    profileSection.classList.remove("skills-animate");
+    resetSkillAnimation();
     void profileSection.offsetWidth;
     requestAnimationFrame(() => {
       if (currentIndex !== PROFILE_INDEX) {
         return;
       }
+      profileSection.querySelectorAll(".skill-progress").forEach((el) => {
+        el.style.transition = "";
+        el.style.strokeDashoffset = "";
+      });
       profileSection.classList.add("skills-animate");
     });
   };
 
-  const syncProfileSkills = (index, previousIndex) => {
-    resetSkillAnimation();
-    if (index !== PROFILE_INDEX && previousIndex !== PROFILE_INDEX) {
-      return;
+  const syncProfileSkills = (index) => {
+    if (index !== PROFILE_INDEX) {
+      resetSkillAnimation();
     }
   };
 
@@ -254,8 +262,8 @@ if (typeof gsap === "undefined") {
     const chars = Array.from(contactDescText);
     const proxy = { count: 0 };
     const titleDuration = 0.6;
-    const typeStart = 0.8;
-    const charDuration = 0.042;
+    const typeStart = 0.85;
+    const charDuration = 0.045;
     const blinkHalf = 0.13;
     const tl = gsap.timeline();
     contactIntroTween = tl;
@@ -283,6 +291,7 @@ if (typeof gsap === "undefined") {
     }, typeStart);
 
     const typeEnd = typeStart + chars.length * charDuration;
+    const infoStart = typeEnd + blinkHalf * 4 + 0.18;
 
     tl.to(contactCursorEl, { opacity: 0, duration: blinkHalf, ease: "none" }, typeEnd);
     tl.to(contactCursorEl, { opacity: 1, duration: blinkHalf, ease: "none" });
@@ -293,27 +302,27 @@ if (typeof gsap === "undefined") {
     tl.to(contactNameRow, {
       opacity: 1,
       y: 0,
-      duration: 0.48,
+      duration: 0.4,
       ease: "power3.out",
-    }, typeEnd);
+    }, infoStart);
     tl.to(contactEmailRow, {
       opacity: 1,
       y: 0,
-      duration: 0.48,
+      duration: 0.4,
       ease: "power3.out",
-    }, typeEnd);
+    }, infoStart + 0.11);
     tl.to(contactPhoneRow, {
       opacity: 1,
       y: 0,
-      duration: 0.48,
+      duration: 0.4,
       ease: "power3.out",
-    }, typeEnd + 0.1);
+    }, infoStart + 0.22);
     tl.to(contactGithub, {
       opacity: 1,
       y: 0,
-      duration: 0.48,
+      duration: 0.4,
       ease: "power3.out",
-    }, typeEnd + 0.2);
+    }, infoStart + 0.33);
   };
 
   const restoreContactDesc = () => {
@@ -397,10 +406,15 @@ if (typeof gsap === "undefined") {
 
   const panelEntranceTweens = new WeakMap();
 
+  const CLIP_HIDDEN = "inset(0 100% 0 0)";
+  const CLIP_SHOW = "inset(0 0 0 0)";
+
   const panelEntranceParts = (panel) => ({
-    texts: [
+    titles: [
       panel.querySelector(".project-category"),
       panel.querySelector(".project-title"),
+    ].filter(Boolean),
+    details: [
       panel.querySelector(".project-subtitle"),
       panel.querySelector(".project-meta"),
     ].filter(Boolean),
@@ -415,13 +429,13 @@ if (typeof gsap === "undefined") {
     }
     panelEntranceTweens.get(panel)?.kill();
     panelEntranceTweens.delete(panel);
-    const { texts, image, buttons, texture } = panelEntranceParts(panel);
-    gsap.set(texts, { opacity: 0, y: 22 });
+    const { titles, details, image, buttons, texture } = panelEntranceParts(panel);
+    gsap.set([...titles, ...details], { opacity: 0, y: 22 });
     gsap.set(buttons, { opacity: 0, y: 10 });
     if (image) {
       gsap.set(image, {
-        clipPath: "polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%)",
-        opacity: 0.7,
+        clipPath: CLIP_HIDDEN,
+        opacity: 1,
       });
     }
     if (texture) {
@@ -434,28 +448,35 @@ if (typeof gsap === "undefined") {
       return;
     }
     const publishing = panel.closest(".section-publishing");
-    const { texts, image, buttons, texture } = panelEntranceParts(panel);
+    const { titles, details, image, buttons, texture } = panelEntranceParts(panel);
     resetPanelEntrance(panel);
     const tl = gsap.timeline();
     panelEntranceTweens.set(panel, tl);
-    tl.to(texts, {
+    tl.to(titles, {
       opacity: 1,
       y: 0,
-      duration: 0.48,
-      stagger: 0.07,
+      duration: 0.5,
+      stagger: 0.08,
       ease: "power3.out",
     }, 0);
+    if (details.length) {
+      tl.to(details, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: "power3.out",
+      }, 0.12);
+    }
     if (image) {
       tl.fromTo(image, {
-        clipPath: "polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%)",
-        opacity: 0.7,
+        clipPath: CLIP_HIDDEN,
       }, {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        opacity: 1,
-        duration: publishing ? 0.75 : 0.65,
+        clipPath: CLIP_SHOW,
+        duration: publishing ? 0.75 : 0.7,
         ease: "power3.inOut",
         immediateRender: false,
-      }, 0.1);
+      }, 0.2);
     }
     if (texture) {
       tl.to(texture, {
@@ -468,10 +489,10 @@ if (typeof gsap === "undefined") {
       tl.to(buttons, {
         opacity: 1,
         y: 0,
-        duration: 0.36,
-        stagger: 0.05,
+        duration: 0.38,
+        stagger: 0.06,
         ease: "power3.out",
-      }, 0.42);
+      }, 0.48);
     }
   };
 
@@ -481,8 +502,8 @@ if (typeof gsap === "undefined") {
     }
     panelEntranceTweens.get(panel)?.kill();
     panelEntranceTweens.delete(panel);
-    const { texts, image, buttons, texture } = panelEntranceParts(panel);
-    gsap.set(texts, { clearProps: "opacity,transform" });
+    const { titles, details, image, buttons, texture } = panelEntranceParts(panel);
+    gsap.set([...titles, ...details], { clearProps: "opacity,transform" });
     gsap.set(buttons, { clearProps: "opacity,transform" });
     if (image) {
       gsap.set(image, { clearProps: "opacity,clipPath" });
@@ -517,6 +538,7 @@ if (typeof gsap === "undefined") {
 
   const goToSlide = (slider, nextIndex) => {
     if (
+      isModalOpen() ||
       isMoving ||
       nextIndex === slider.index ||
       nextIndex < 0 ||
@@ -537,7 +559,10 @@ if (typeof gsap === "undefined") {
     gsap.set(currentPanel, { zIndex: 1 });
     nextPanel.style.pointerEvents = "auto";
     currentPanel.style.pointerEvents = "none";
-    playPanelEntrance(nextPanel);
+    resetPanelEntrance(nextPanel);
+    if (!isFullpage()) {
+      playPanelEntrance(nextPanel);
+    }
 
     gsap.to(currentPanel, {
       xPercent: -100 * dir,
@@ -552,7 +577,12 @@ if (typeof gsap === "undefined") {
       duration: SLIDE_DURATION,
       ease: MOVE_EASE,
       overwrite: true,
-      onComplete: unlockMove,
+      onComplete: () => {
+        if (isFullpage()) {
+          playPanelEntrance(nextPanel);
+        }
+        unlockMove();
+      },
     });
 
     slider.index = nextIndex;
@@ -584,7 +614,7 @@ if (typeof gsap === "undefined") {
     currentIndex = index;
 
     syncHeaderCompact(index);
-    syncProfileSkills(index, previousIndex);
+    syncProfileSkills(index);
     syncContactIntro(index, previousIndex);
 
     if (index === GRAPHIC_INDEX && graphicGallery) {
@@ -727,7 +757,7 @@ if (typeof gsap === "undefined") {
   };
 
   const handleNavClick = (event) => {
-    if (!isFullpage()) {
+    if (!isFullpage() || isModalOpen()) {
       return;
     }
 
@@ -859,7 +889,8 @@ if (typeof gsap === "undefined") {
     };
 
     const onEnd = (event) => {
-      if (!tracking) {
+      if (!tracking || isModalOpen()) {
+        tracking = false;
         return;
       }
       tracking = false;
@@ -887,7 +918,7 @@ if (typeof gsap === "undefined") {
 
   const mm = gsap.matchMedia();
 
-  mm.add("(min-width: 769px)", () => {
+  mm.add("(min-width: 1201px)", () => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return undefined;
     }
