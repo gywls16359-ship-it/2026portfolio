@@ -56,7 +56,7 @@
   color: var(--color-timo-primary);
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1201px) {
   .section-uiux.is-project-slider {
     position: relative;
     overflow: hidden;
@@ -78,7 +78,10 @@
   }
 
   .section-uiux .project-info {
-    align-self: center;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .section-uiux .project-visual {

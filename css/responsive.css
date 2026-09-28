@@ -477,31 +477,57 @@
     min-height: 100svh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     overflow: hidden;
     padding: var(--header-height) 20px 24px;
   }
 
-  .word-search-frame {
-    --ws-available: min(300px, calc(100vw - 64px));
-    order: -1;
-  }
-
   .main-inner {
-    flex: 0 0 auto;
+    position: relative;
+    flex: 1 1 auto;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 16px;
+    width: 100%;
     margin: 0 auto;
     min-height: 0;
   }
 
+  .word-search-frame {
+    --ws-left: 0px;
+    --ws-available: min(300px, calc(100vw - 48px));
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 0;
+    width: var(--ws-available);
+    max-width: 100%;
+    height: calc(var(--ws-available) * 608 / 661);
+    aspect-ratio: auto;
+    margin: calc(var(--ws-available) * 608 / 661 / -2) auto 0;
+    overflow: visible;
+  }
+
+  .word-search {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 661px;
+    height: 608px;
+    transform: translate(-50%, -50%) scale(calc(var(--ws-available) / 661px));
+    transform-origin: center center;
+  }
+
   .main-copy {
+    position: relative;
+    z-index: 1;
     align-self: center;
-    width: auto;
+    width: 100%;
     max-width: 100%;
     padding: 0;
+    text-align: center;
   }
 
   .main-year-wrap {

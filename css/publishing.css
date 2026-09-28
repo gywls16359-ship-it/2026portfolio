@@ -64,7 +64,7 @@
   transform: translateX(var(--visual-x));
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1201px) {
   .section-publishing.is-project-slider {
     position: relative;
     overflow: hidden;
@@ -86,7 +86,10 @@
   }
 
   .section-publishing .project-info {
-    align-self: center;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .section-publishing .project-visual {
