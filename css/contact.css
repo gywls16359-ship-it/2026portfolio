@@ -1,6 +1,8 @@
 .section-contact {
-  min-height: 734px;
-  padding: 218px 80px 40px;
+  display: flex;
+  align-items: center;
+  min-height: calc(100svh - var(--header-height) - var(--footer-height));
+  padding: clamp(36px, 6svh, 80px) 80px clamp(28px, 5svh, 48px);
 }
 
 .contact-inner {
@@ -50,6 +52,11 @@
   top: 0;
   left: 0;
   width: 100%;
+  color: inherit;
+}
+
+.contact-desc__text {
+  color: inherit;
 }
 
 .contact-desc__cursor {
@@ -93,6 +100,26 @@
   transform: scale(1.08);
 }
 
+@media (min-width: 769px) and (max-height: 900px) {
+  .section-contact {
+    padding: clamp(36px, 6svh, 72px) 80px clamp(36px, 6svh, 64px);
+  }
+
+  .contact-title {
+    font-size: 72px;
+    line-height: 80px;
+  }
+
+  .contact-desc {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .contact-left {
+    gap: 20px;
+  }
+}
+
 .contact-label {
   flex: 0 0 200px;
   font-family: var(--font-score);
@@ -110,7 +137,7 @@
 
 .site-footer {
   width: 100%;
-  height: 166px;
+  height: var(--footer-height);
   display: flex;
   flex-direction: column;
   align-items: center;

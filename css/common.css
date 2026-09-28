@@ -418,7 +418,11 @@
   pointer-events: none;
 }
 
-@media (min-width: 1201px) {
+.project-slide-arrow {
+  display: none;
+}
+
+@media (min-width: 769px) {
   .project-bottom-nav.has-slide-indicator .bottom-nav-item.is-active .point-line {
     width: 11px;
     height: 11px;

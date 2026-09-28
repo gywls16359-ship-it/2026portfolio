@@ -56,7 +56,7 @@
   color: var(--color-timo-primary);
 }
 
-@media (min-width: 1201px) {
+@media (min-width: 769px) {
   .section-uiux.is-project-slider {
     position: relative;
     overflow: hidden;

@@ -64,7 +64,7 @@
   transform: translateX(var(--visual-x));
 }
 
-@media (min-width: 1201px) {
+@media (min-width: 769px) {
   .section-publishing.is-project-slider {
     position: relative;
     overflow: hidden;

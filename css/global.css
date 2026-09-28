@@ -109,6 +109,7 @@
   --point-line-height: 6px;
 
   --header-height: 100px;
+  --footer-height: 166px;
   --section-min-height: 100svh;
   --section-min-height-header: calc(100svh - var(--header-height));
   --frame-width: 1400px;

@@ -67,7 +67,7 @@ if (typeof gsap === "undefined") {
   let isMoving = false;
   let graphicStep = 0;
 
-  const isDesktop = () => window.matchMedia("(min-width: 1201px)").matches;
+  const isFullpage = () => window.matchMedia("(min-width: 769px)").matches;
 
   const isModalOpen = () => Boolean(detailModal && !detailModal.hidden);
 
@@ -174,9 +174,6 @@ if (typeof gsap === "undefined") {
     if (index !== PROFILE_INDEX && previousIndex !== PROFILE_INDEX) {
       return;
     }
-    if (index === PROFILE_INDEX) {
-      skillPlayTween = gsap.delayedCall(MOVE_DURATION, playSkillAnimation);
-    }
   };
 
   const contactTitle = contactSection?.querySelector(".contact-title");
@@ -222,6 +219,7 @@ if (typeof gsap === "undefined") {
 
     live.append(contactTypeEl, contactCursorEl);
     contactDesc.append(sizer, live);
+    contactTypeEl.textContent = contactDescText;
     contactDescReady = true;
   };
 
@@ -238,8 +236,12 @@ if (typeof gsap === "undefined") {
       opacity: 0,
       y: 20,
     });
-    contactTypeEl.textContent = "";
-    gsap.set(contactCursorEl, { opacity: 0 });
+    if (contactTypeEl) {
+      contactTypeEl.textContent = contactDescText;
+    }
+    if (contactCursorEl) {
+      gsap.set(contactCursorEl, { opacity: 0 });
+    }
   };
 
   const playContactIntro = () => {
@@ -247,6 +249,7 @@ if (typeof gsap === "undefined") {
       return;
     }
     hideContactIntro();
+    contactTypeEl.textContent = "";
 
     const chars = Array.from(contactDescText);
     const proxy = { count: 0 };
@@ -368,6 +371,11 @@ if (typeof gsap === "undefined") {
     slider.navItems.forEach((item, i) => {
       item.classList.toggle("is-active", i === index);
     });
+    if (slider.arrows) {
+      const [prev, next] = slider.arrows;
+      prev.disabled = index <= 0;
+      next.disabled = index >= slider.panels.length - 1;
+    }
   };
 
   const moveSliderIndicator = (slider, index, immediate) => {
@@ -529,6 +537,7 @@ if (typeof gsap === "undefined") {
     gsap.set(currentPanel, { zIndex: 1 });
     nextPanel.style.pointerEvents = "auto";
     currentPanel.style.pointerEvents = "none";
+    playPanelEntrance(nextPanel);
 
     gsap.to(currentPanel, {
       xPercent: -100 * dir,
@@ -543,10 +552,7 @@ if (typeof gsap === "undefined") {
       duration: SLIDE_DURATION,
       ease: MOVE_EASE,
       overwrite: true,
-      onComplete: () => {
-        playPanelEntrance(nextPanel);
-        unlockMove();
-      },
+      onComplete: unlockMove,
     });
 
     slider.index = nextIndex;
@@ -603,6 +609,9 @@ if (typeof gsap === "undefined") {
         const slider = sliderAtScreen(index);
         if (slider) {
           moveSliderIndicator(slider, slider.index, true);
+        }
+        if (index === PROFILE_INDEX) {
+          playSkillAnimation();
         }
         if (index === CONTACT_INDEX && previousIndex !== CONTACT_INDEX) {
           playContactIntro();
@@ -675,7 +684,7 @@ if (typeof gsap === "undefined") {
   };
 
   const handleWheel = (event) => {
-    if (!isDesktop() || isModalOpen()) {
+    if (!isFullpage() || isModalOpen()) {
       return;
     }
 
@@ -718,7 +727,7 @@ if (typeof gsap === "undefined") {
   };
 
   const handleNavClick = (event) => {
-    if (!isDesktop()) {
+    if (!isFullpage()) {
       return;
     }
 
@@ -803,9 +812,82 @@ if (typeof gsap === "undefined") {
     slider.nav?.classList.remove("has-slide-indicator");
   };
 
+  const arrowSvg = (dir) =>
+    `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="${
+      dir === "prev" ? "M15 5L8 12l7 7" : "M9 5l7 7-7 7"
+    }" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+  const setupMobileArrows = (slider) => {
+    if (!slider.section || slider.arrows) {
+      return;
+    }
+    const prev = document.createElement("button");
+    const next = document.createElement("button");
+    prev.type = "button";
+    next.type = "button";
+    prev.className = "project-slide-arrow project-slide-arrow--prev";
+    next.className = "project-slide-arrow project-slide-arrow--next";
+    prev.setAttribute("aria-label", "이전 프로젝트");
+    next.setAttribute("aria-label", "다음 프로젝트");
+    prev.innerHTML = arrowSvg("prev");
+    next.innerHTML = arrowSvg("next");
+    prev.addEventListener("click", () => goToSlide(slider, slider.index - 1));
+    next.addEventListener("click", () => goToSlide(slider, slider.index + 1));
+    slider.section.append(prev, next);
+    slider.arrows = [prev, next];
+    setSliderNavActive(slider, slider.index);
+  };
+
+  const teardownMobileArrows = (slider) => {
+    slider.arrows?.forEach((btn) => btn.remove());
+    slider.arrows = null;
+  };
+
+  const bindSliderSwipe = (slider) => {
+    if (!slider.section) {
+      return () => {};
+    }
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
+
+    const onStart = (event) => {
+      const touch = event.changedTouches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      tracking = true;
+    };
+
+    const onEnd = (event) => {
+      if (!tracking) {
+        return;
+      }
+      tracking = false;
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - startX;
+      const dy = touch.clientY - startY;
+      if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.15) {
+        return;
+      }
+      if (dx < 0) {
+        goToSlide(slider, slider.index + 1);
+      } else {
+        goToSlide(slider, slider.index - 1);
+      }
+    };
+
+    slider.section.addEventListener("touchstart", onStart, { passive: true });
+    slider.section.addEventListener("touchend", onEnd, { passive: true });
+
+    return () => {
+      slider.section.removeEventListener("touchstart", onStart);
+      slider.section.removeEventListener("touchend", onEnd);
+    };
+  };
+
   const mm = gsap.matchMedia();
 
-  mm.add("(min-width: 1201px)", () => {
+  mm.add("(min-width: 769px)", () => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return undefined;
     }
@@ -820,7 +902,7 @@ if (typeof gsap === "undefined") {
       hideContactIntro();
     }
     if (currentIndex === PROFILE_INDEX) {
-      skillPlayTween = gsap.delayedCall(MOVE_DURATION, playSkillAnimation);
+      playSkillAnimation();
     } else {
       resetSkillAnimation();
     }
@@ -828,9 +910,36 @@ if (typeof gsap === "undefined") {
     layoutSliderPanels(publishing, publishing.index, true);
     syncSliderEntrances(uiux, UIUX_INDEX);
     syncSliderEntrances(publishing, PUBLISHING_INDEX);
+    const unbindSwipes = projectSliders.map(bindSliderSwipe);
     window.addEventListener("wheel", handleWheel, { passive: false });
     document.addEventListener("click", handleNavClick, true);
     window.addEventListener("resize", syncVisibleIndicator);
+
+    let touchStartY = 0;
+    let touchStartX = 0;
+    const handleTouchStart = (event) => {
+      const touch = event.changedTouches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+    };
+    const handleTouchEnd = (event) => {
+      if (!isFullpage() || isModalOpen() || isMoving) {
+        return;
+      }
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - touchStartX;
+      const dy = touch.clientY - touchStartY;
+      if (Math.abs(dy) < 56 || Math.abs(dy) < Math.abs(dx) * 1.1) {
+        return;
+      }
+      if (dy > 0) {
+        movePrev();
+      } else {
+        moveNext();
+      }
+    };
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     const observers = projectSliders
       .filter((slider) => slider.nav)
@@ -847,7 +956,10 @@ if (typeof gsap === "undefined") {
       window.removeEventListener("wheel", handleWheel);
       document.removeEventListener("click", handleNavClick, true);
       window.removeEventListener("resize", syncVisibleIndicator);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
       observers.forEach((observer) => observer.disconnect());
+      unbindSwipes.forEach((unbind) => unbind());
       isMoving = false;
       graphicStep = 0;
       gsap.killTweensOf(window);
@@ -868,6 +980,27 @@ if (typeof gsap === "undefined") {
       restoreContactDesc();
       projectSliders.forEach((slider) => {
         slider.panels.forEach(clearPanelEntrance);
+        teardownSlider(slider);
+      });
+    };
+  });
+
+  mm.add("(max-width: 768px)", () => {
+    projectSliders.forEach((slider) => {
+      slider.section?.classList.add("is-project-slider");
+      setupMobileArrows(slider);
+      slider.index = 0;
+      layoutSliderPanels(slider, 0, true);
+    });
+
+    const unbinds = projectSliders.map(bindSliderSwipe);
+
+    return () => {
+      unbinds.forEach((unbind) => unbind());
+      isMoving = false;
+      projectSliders.forEach((slider) => {
+        slider.panels.forEach(clearPanelEntrance);
+        teardownMobileArrows(slider);
         teardownSlider(slider);
       });
     };

@@ -26,7 +26,7 @@ const updateActiveProject = (nav) => {
 
   if (
     (nav.dataset.nav === "uiux" || nav.dataset.nav === "publishing") &&
-    window.matchMedia("(min-width: 1201px)").matches
+    window.matchMedia("(min-width: 769px)").matches
   ) {
     return;
   }

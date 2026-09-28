@@ -112,20 +112,19 @@ if (prefersReducedMotion) {
   revealRoots.forEach((root) => revealObserver.observe(root));
 
   const skillsBlock = document.querySelector(".skills-block");
-  const isDesktopFullpage = window.matchMedia("(min-width: 1201px)").matches;
-  if (skillsBlock && !isDesktopFullpage) {
+  if (skillsBlock) {
     const skillsObserver = new IntersectionObserver(
-      (entries, observer) => {
+      (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) {
             return;
           }
           skillsBlock.classList.add("is-drawn");
-          observer.unobserve(entry.target);
+          document.getElementById("profile")?.classList.add("skills-animate");
         });
       },
       {
-        threshold: 0.25,
+        threshold: 0.2,
       }
     );
     skillsObserver.observe(skillsBlock);

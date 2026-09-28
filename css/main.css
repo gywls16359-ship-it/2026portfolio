@@ -32,14 +32,15 @@
   position: relative;
   display: inline-block;
   margin-bottom: 9px;
+  font-size: 30px;
 }
 
 .main-check {
   position: absolute;
-  left: -24px;
-  top: -9px;
+  left: -0.8em;
+  top: -0.3em;
   z-index: 0;
-  width: 235px;
+  width: 7.833em;
   height: auto;
   pointer-events: none;
 }
@@ -48,7 +49,7 @@
   position: relative;
   z-index: 1;
   font-family: "Kyobo Handwriting 2025";
-  font-size: 30px;
+  font-size: 1em;
   letter-spacing: -0.04em;
   color: #262626;
   transform: rotate(-3.61deg);
@@ -213,7 +214,7 @@
 @keyframes main-intro-cue {
   from {
     opacity: 0;
-    transform: translate(-50%, 10px);
+    transform: translate(-50%, -6px);
   }
   to {
     opacity: 1;
@@ -264,23 +265,23 @@
 }
 
 .section-main.is-ready .word-search-line--uiux rect {
-  animation: word-line-draw 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+  animation: word-line-draw 2s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
 }
 
 .section-main.is-ready .word-search-line--web rect {
-  animation: word-line-draw 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0.63s forwards;
+  animation: word-line-draw 2s cubic-bezier(0.22, 1, 0.36, 1) 0.75s forwards;
 }
 
 .section-main.is-ready .word-search-line--design rect {
-  animation: word-line-draw 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0.71s forwards;
+  animation: word-line-draw 2s cubic-bezier(0.22, 1, 0.36, 1) 0.95s forwards;
 }
 
 .section-main.is-ready .word-search-line--publish rect {
-  animation: word-line-draw 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0.79s forwards;
+  animation: word-line-draw 2s cubic-bezier(0.22, 1, 0.36, 1) 1.15s forwards;
 }
 
 .section-main.is-ready .word-search-line--portfolio rect {
-  animation: word-line-draw 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0.87s forwards;
+  animation: word-line-draw 2s cubic-bezier(0.22, 1, 0.36, 1) 1.35s forwards;
 }
 
 .section-main.is-intro-done .word-search-line rect {
@@ -329,10 +330,11 @@
 .scroll-cue {
   position: absolute;
   left: 50%;
-  bottom: 0px;
+  bottom: 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 12px;
   transform: translateX(-50%);
 }
 
@@ -358,14 +360,15 @@
   }
 
   50% {
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
 }
 
 @media (min-width: 1201px) {
   .section-main {
     justify-content: center;
-    padding: 0 88px;
+    overflow: hidden;
+    padding: 0 88px 12px;
   }
 
   .main-inner {
